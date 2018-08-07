@@ -1,0 +1,46 @@
+version: '2.0'
+services:
+  db:
+    image: postgres:10.3
+    command: -p 5432
+    volumes:
+      - 'database:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_USER=campup
+      - POSTGRES_PASSWORD=campup
+      - POSTGRES_DB=campup-main
+    ports:
+      - '5432:5432'
+
+  web:
+    image: node:10.1.0
+    working_dir: '/app'
+    command: 'npm run dc:start'
+    ports:
+      - "${DOCKER_PORT}:13000"
+    links:
+      - db:db
+    volumes:
+      - './src:/app/src'
+      - './package.json:/app/package.json'
+      - './webpack.config.js:/app/webpack.config.js'
+      - './development.json:/app/development.json'
+      - './migrations:/app/migrations'
+      - 'node_modules:/app/node_modules'
+    environment:
+      - SERVER_URL=${SERVER_URL}
+      - DATABASE_URL=postgres://campup:campup@db:5432/campup-main
+      - PORT=13000
+
+  npm:
+      image: node:10.1.0
+      working_dir: '/app'
+      entrypoint: 'npm'
+      volumes:
+        - './package.json:/app/package.json'
+        - './package-lock.json:/app/package-lock.json'
+        - 'node_modules:/app/node_modules'
+        - './src:/app/src'
+volumes:
+  database:
+  node_modules:
