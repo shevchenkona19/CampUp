@@ -16,6 +16,14 @@ module.exports = {
             },
             status: {
                 type: Sequelize.STRING
+            },
+            partyId: {
+                type: Sequelize.INTEGER,
+                allowNull: true,
+                references: {
+                    model: "parties",
+                    key: "id"
+                }
             }
         });
     },

@@ -14,6 +14,6 @@ module.exports = (db, DataTypes) => {
         partyId: {
             type: DataTypes.INTEGER
         }
-    });
+    }, {timestamps: false});
     return Laws;
 };

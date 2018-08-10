@@ -1,10 +1,13 @@
 const Parties = require("../models/index").getPartiesModel();
 const Users = require("../models/index").getUsersModel();
-const UserParty = require("../models/index").getUserPartyModel();
 const ErrorCodes = require("../../common/errorCodes");
 
 async function getAllParties() {
-    const all = await Parties.findAll();
+    const all = await Parties.findAll({
+        include: [
+            {model: Users, required: false}
+        ]
+    });
     if (all === null) {
         throw new Error(ErrorCodes.EMPTY_PARTIES)
     }
@@ -30,7 +33,6 @@ async function createParty(params) {
 }
 
 async function deleteParty(partyId) {
-    await UserParty.destroy({where: {partyId}});
     await Parties.destroy({where: {id: partyId}});
 }
 
@@ -47,9 +49,28 @@ async function getParty(partyId) {
     return party;
 }
 
+async function addToParty(params) {
+    const partyId = params.partyId, userId = params.userId;
+    const user = await Users.findById(userId);
+    user.partyId = partyId;
+    user.status = "deputy";
+    await user.save();
+}
+
+async function removeFromParty(userId) {
+    const user = await Users.findById(userId);
+
+    user.partyId = null;
+    user.status = "unemployed";
+
+    await user.save();
+}
+
 module.exports = {
     getAllParties,
     createParty,
     deleteParty,
-    getParty
+    getParty,
+    addToParty,
+    removeFromParty
 };

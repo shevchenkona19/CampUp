@@ -1,38 +1,34 @@
-import {
-    CREATE_PARTY_FAILED,
-    CREATE_PARTY_SEND,
-    CREATE_PARTY_SUCCESS,
-} from "../../constants/actionTypes";
+import {GET_ALL_PARTIES_FAILED, GET_ALL_USERS_SEND, GET_ALL_USERS_SUCCESS} from "../../constants/actionTypes";
 
-export const createPartyAction = party => dispatch => {
+export const getAllUsersAction = () => dispatch => {
     dispatch({
-        type: CREATE_PARTY_SEND
+        type: GET_ALL_USERS_SEND
     });
-    const url = "/parties/create";
+    const url = "/users/all";
     fetch(url, {
-        method: "post",
+        method: "get",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(party)
     })
         .then(res => res.json())
         .then(res => {
             if (res.success) {
                 dispatch({
-                    type: CREATE_PARTY_SUCCESS
+                    type: GET_ALL_USERS_SUCCESS,
+                    users: res.users
                 })
             } else {
                 dispatch({
-                    type: CREATE_PARTY_FAILED,
+                    type: GET_ALL_PARTIES_FAILED,
                     errorCode: res.errorCode
                 })
             }
         })
         .catch(err => {
             dispatch({
-                type: CREATE_PARTY_FAILED,
+                type: GET_ALL_PARTIES_FAILED,
                 errorCode: err
             })
         })

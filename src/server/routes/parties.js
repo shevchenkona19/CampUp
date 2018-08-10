@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Controller = require("../controllers/parties");
 
-router.get("/allParties", async (req, res) => {
+router.get("/all", async (req, res) => {
     try {
         const all = await Controller.getAllParties();
         return res.json({
@@ -18,8 +18,8 @@ router.get("/allParties", async (req, res) => {
     }
 });
 
-router.post("/createParty", async (req, res) => {
-    const params = req.body.params;
+router.post("/create", async (req, res) => {
+    const params = req.body;
     try {
         await Controller.createParty(params);
         return res.json({
@@ -60,10 +60,31 @@ router.get("/party", async (req, res) => {
         })
     } catch (e) {
         console.log(e.stack);
+        return res.json(sendError(e))
+    }
+});
+
+router.post("/addToParty", async (req, res) => {
+    try {
+        await Controller.addToParty(req.body);
         return res.json({
-            success: false,
-            errorCode: e
+            success: true,
         })
+    } catch (e) {
+        console.log(e.stack);
+        return res.json(sendError(e))
+    }
+});
+
+router.delete("/deleteFromParty", async (req, res) => {
+    try {
+        await Controller.removeFromParty(req.body.userId);
+        return res.json({
+            success: true,
+        })
+    } catch (e) {
+        console.log(e.stack);
+        return res.json(sendError(e))
     }
 });
 

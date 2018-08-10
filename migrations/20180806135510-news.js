@@ -16,6 +16,13 @@ module.exports = {
         },
         creatorId: {
             type: Sequelize.INTEGER,
+        },
+        userId: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: "users",
+                key: "id"
+            }
         }
     })
   },

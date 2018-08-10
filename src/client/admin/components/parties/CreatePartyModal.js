@@ -44,7 +44,7 @@ export default class CreatePartyModal extends React.Component{
                     <Button bsStyle="primary" onClick={e => {
                         e.preventDefault();
                         this.props.onSubmit();
-                    }}>Submit</Button>
+                    }}>Создать</Button>
                 </Modal.Body>
             </Modal>
         )

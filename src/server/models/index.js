@@ -23,18 +23,12 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 const Models = db.sequelize.models;
-Models.userParty.removeAttribute("id");
-Models.parties.hasMany(Models.users);
-Models.users.belongsTo(Models.parties);
-sequelize.sync();
-
 
 module.exports = {
     getPartiesModel: () => Models.parties,
     getCountryModel: () => Models.country,
     getLawModel: () => Models.laws,
     getNewsModel: () => Models.news,
-    getUserPartyModel: () => Models.userParty,
     getUsersModel: () => Models.users,
     getDb: () => db,
 };

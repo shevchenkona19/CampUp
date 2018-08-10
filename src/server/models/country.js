@@ -14,6 +14,6 @@ module.exports = (db, DataTypes) => {
         budget: {
             type: DataTypes.INTEGER,
         }
-    });
+    }, {timestamps: false});
     return Country;
 };

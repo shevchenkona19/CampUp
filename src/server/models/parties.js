@@ -14,6 +14,11 @@ module.exports = (db, DataTypes) => {
         ideology: {
             type: DataTypes.STRING,
         }
-    });
+    }, {timestamps: false});
+    Parties.associate = models => {
+        models.parties.hasMany(models.users, {
+            foreignKey: "partyId"
+        })
+    };
     return Parties;
 };

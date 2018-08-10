@@ -8,13 +8,14 @@ import MainSwitch from "./containers/MainSwitch";
 import AllParties from "./containers/AllParties";
 import Laws from "./containers/Laws";
 import News from "./containers/News";
+import LoadableContainer from "./containers/LoadableContainer";
 
 export default class App extends React.Component {
     render() {
         return (
             <React.Fragment>
                 <Provider store={store}>
-                    <React.Fragment>
+                    <LoadableContainer>
                     <MainNav/>
                     <BrowserRouter>
                         <MainSwitch>
@@ -24,7 +25,7 @@ export default class App extends React.Component {
                             <Route exact component={News} path="/admin/news"/>
                         </MainSwitch>
                     </BrowserRouter>
-                    </React.Fragment>
+                    </LoadableContainer>
                 </Provider>
             </React.Fragment>
         )

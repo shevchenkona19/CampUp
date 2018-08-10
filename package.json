@@ -52,7 +52,8 @@
     "sequelize-cli": "^4.0.0",
     "style-loader": "^0.21.0",
     "wait-port": "^0.2.2",
-    "webpack": "^4.10.2"
+    "webpack": "^4.10.2",
+    "react-loading-overlay": "^0.3.0"
   },
   "babel": {
     "presets": [

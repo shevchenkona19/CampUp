@@ -16,7 +16,24 @@ const createParty = {
 const parties = {
     createParty,
     showModal: false,
-    parties: []
+    parties: [],
+    emptyUsers: [],
+    partyUsers: [],
+};
+
+const createUser = {
+    name: "",
+    lastName: "",
+    status: "",
+    isError: false,
+    errorCode: "",
+    submitSuccess: false
+};
+
+const users = {
+    showModal: false,
+    users: [],
+    createUser
 };
 
 export const initState = {
@@ -24,4 +41,6 @@ export const initState = {
     parties,
     currentRoute: "",
     isLoading: false,
+    users,
+    isError: false,
 };
