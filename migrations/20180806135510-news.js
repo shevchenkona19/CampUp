@@ -11,18 +11,11 @@ module.exports = {
         title: {
             type: Sequelize.STRING,
         },
-        description: {
+        body: {
+            type: Sequelize.STRING(10000),
+        },
+        creator: {
             type: Sequelize.STRING,
-        },
-        creatorId: {
-            type: Sequelize.INTEGER,
-        },
-        userId: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: "users",
-                key: "id"
-            }
         }
     })
   },

@@ -88,6 +88,18 @@ router.delete("/deleteFromParty", async (req, res) => {
     }
 });
 
+router.post("/setRating", async (req, res) => {
+    try {
+        await Controller.setRating(req.body);
+        return res.json({
+            success: true,
+        })
+    } catch (e) {
+        console.log(e.stack);
+        return res.json(sendError(e))
+    }
+});
+
 sendError = error => ({success: false, errorCode: error});
 
 module.exports = router;

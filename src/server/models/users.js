@@ -28,9 +28,6 @@ module.exports = (db, DataTypes) => {
             as: "party",
             foreignKey: "partyId"
         });
-        models.users.hasMany(models.news, {
-            foreignKey: "userId"
-        })
     };
     return Users;
 };

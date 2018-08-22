@@ -1,4 +1,5 @@
 const Users = require("../models/index").getUsersModel();
+const Parties = require("../models/index").getPartiesModel();
 const Op = require("../models/index").getDb().Sequelize.Op;
 const errorCodes = require("../../common/errorCodes");
 
@@ -15,7 +16,12 @@ async function getAll() {
 }
 
 async function getOne(userId) {
-    const user = await Users.findById(userId);
+    const user = await Users.findOne({
+        where: {id: userId},
+        include: [
+            {model: Parties, required: false, as: "party"}
+        ]
+    });
     if (!user) {
         throw new Error(errorCodes.NO_SUCH_USER);
     }

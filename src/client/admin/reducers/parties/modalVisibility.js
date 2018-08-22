@@ -21,3 +21,31 @@ export const closeCreateModalReducer = (state, action) => ({
         }
     }
 });
+
+export const showSetRatingModalReducer = (state, action) => ({
+    ...state,
+    parties: {
+        ...state.parties,
+        setRating: {
+            ...state.parties.setRating,
+            selectedParty: action.party,
+            rating: action.party.rating,
+            showModal: true,
+        }
+    }
+});
+
+export const hideSetRatingModalReducer = (state, action) => ({
+    ...state,
+    parties: {
+        ...state.parties,
+        setRating: {
+            showModal: false,
+            rating: -1,
+            selectedParty: {},
+            isSuccess: false,
+            isError: false,
+            errorCode: ""
+        }
+    }
+});

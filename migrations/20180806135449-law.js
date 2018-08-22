@@ -11,11 +11,11 @@ module.exports = {
             title: {
                 type: Sequelize.STRING,
             },
-            description: {
-                type: Sequelize.STRING,
+            body: {
+                type: Sequelize.STRING(10000),
             },
-            partyId: {
-                type: Sequelize.INTEGER
+            creator: {
+                type: Sequelize.STRING,
             }
         })
     },

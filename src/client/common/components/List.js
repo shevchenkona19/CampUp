@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export default class List extends React.Component {
 
-    renderItems = () => this.props.items.map(item => this.props.renderItem(item));
+    renderItems = () => this.props.items && this.props.items.map(item => this.props.renderItem(item));
 
     render() {
         return (
@@ -16,7 +16,7 @@ export default class List extends React.Component {
 }
 
 List.propTypes = {
-    items: PropTypes.array.isRequired,
+    items: PropTypes.array,
 
-    renderItem: PropTypes.func.isRequired,
+    renderItem: PropTypes.func,
 };

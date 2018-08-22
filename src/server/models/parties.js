@@ -11,6 +11,11 @@ module.exports = (db, DataTypes) => {
         description: {
             type: DataTypes.STRING,
         },
+        rating: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: false,
+        },
         ideology: {
             type: DataTypes.STRING,
         }

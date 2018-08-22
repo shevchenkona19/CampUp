@@ -66,11 +66,24 @@ async function removeFromParty(userId) {
     await user.save();
 }
 
+async function setRating(params) {
+    const id = params.id;
+    const rating = params.rating;
+
+    const party = await Parties.findById(id);
+    if (party === null) {
+        throw new Error("NO_SUCH_PARTY");
+    }
+    party.rating = rating;
+    await party.save();
+}
+
 module.exports = {
     getAllParties,
     createParty,
     deleteParty,
     getParty,
     addToParty,
-    removeFromParty
+    removeFromParty,
+    setRating,
 };

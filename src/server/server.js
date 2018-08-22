@@ -16,10 +16,15 @@ app.use(bodyParser.urlencoded({
 const views = require("./routes/views");
 const parties = require("./routes/parties");
 const users = require("./routes/users");
+const laws = require("./routes/laws");
+const news = require("./routes/news");
+
 app.use("/build", express.static(path.join(__dirname, "../../build")));
 
 app.use("/parties", parties);
 app.use("/users", users);
+app.use("/laws", laws);
+app.use("/news", news);
 app.use("/", views);
 
 app.listen(port, () => console.log("App started at port: " + port));

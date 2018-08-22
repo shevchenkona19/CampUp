@@ -13,30 +13,30 @@ export default class CreatePartyModal extends React.Component{
                 <Modal.Body>
                     <form>
                         <FormGroup>
-                            <ControlLabel>Title</ControlLabel>
+                            <ControlLabel>Название</ControlLabel>
                             <FormControl
                                 type="text"
                                 value={this.props.title}
                                 onChange={e => this.props.changeTitle(e.target.value)}
-                                placeholder="Party title"
+                                placeholder="Название партии"
                             />
                         </FormGroup>
                         <FormGroup>
-                            <ControlLabel>Description</ControlLabel>
+                            <ControlLabel>Описание</ControlLabel>
                             <FormControl
                                 componentClass={"textarea"}
                                 value={this.props.description}
                                 onChange={e => this.props.changeDescription(e.target.value)}
-                                placeholder="Party description"
+                                placeholder="Описание партии"
                             />
                         </FormGroup>
                         <FormGroup>
-                            <ControlLabel>Ideology</ControlLabel>
+                            <ControlLabel>Идеология</ControlLabel>
                             <FormControl
                                 componentClass={"textarea"}
                                 value={this.props.ideology}
                                 onChange={e => this.props.changeIdeology(e.target.value)}
-                                placeholder={"Party ideology"}
+                                placeholder={"Идеология партии"}
                             />
                         </FormGroup>
                     </form>

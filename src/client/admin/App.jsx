@@ -16,15 +16,15 @@ export default class App extends React.Component {
             <React.Fragment>
                 <Provider store={store}>
                     <LoadableContainer>
-                    <MainNav/>
-                    <BrowserRouter>
-                        <MainSwitch>
-                            <Route exact component={AllUsers} path="/admin/allusers"/>
-                            <Route exact component={AllParties} path="/admin/allparties"/>
-                            <Route exact component={Laws} path="/admin/laws"/>
-                            <Route exact component={News} path="/admin/news"/>
-                        </MainSwitch>
-                    </BrowserRouter>
+                        <MainNav/>
+                        <BrowserRouter>
+                            <MainSwitch>
+                                <Route exact component={AllUsers} path="/admin/allusers"/>
+                                <Route exact component={AllParties} path="/admin/allparties"/>
+                                <Route exact component={Laws} path="/admin/laws"/>
+                                <Route exact component={News} path="/admin/news"/>
+                            </MainSwitch>
+                        </BrowserRouter>
                     </LoadableContainer>
                 </Provider>
             </React.Fragment>

@@ -8,25 +8,12 @@ module.exports = (db, DataTypes) => {
         title: {
             type: DataTypes.STRING,
         },
-        description: {
+        body: {
+            type: DataTypes.STRING(10000),
+        },
+        creator: {
             type: DataTypes.STRING,
-        },
-        creatorId: {
-            type: DataTypes.INTEGER,
-        },
-        userId: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: "users",
-                key: "id"
-            }
         }
     }, {timestamps: false});
-    News.associate = models => {
-          models.news.belongsTo(models.users, {
-              foreignKey: "userId",
-              as: "user"
-          })
-    };
     return News;
 };

@@ -4,11 +4,16 @@ import connect from "react-redux/es/connect/connect";
 import {Button, ControlLabel, FormControl, FormGroup, Media, Modal} from "react-bootstrap";
 import {createPartyAction} from "../actions/parties/createOne";
 import CreatePartyModal from "../components/parties/CreatePartyModal";
-import {closeCreateModalAction, showCreateModalAction} from "../actions/parties/modalVisibility";
+import {
+    closeCreateModalAction,
+    hideSetRatingAction,
+    showCreateModalAction,
+    showSetRatingAction
+} from "../actions/parties/modalVisibility";
 import {
     changeCreatePartyDescription,
     changeCreatePartyIdeology,
-    changeCreatePartyTitle
+    changeCreatePartyTitle, changeRatingAction
 } from "../actions/parties/input";
 import {getAllPartiesAction} from "../actions/parties/getAll";
 import AddToParty from "../components/parties/AddToParty";
@@ -17,6 +22,8 @@ import {addUserToParty} from "../actions/parties/addToParty";
 import PartyList from "../components/parties/PartyList";
 import {getAllUsersForParty} from "../actions/parties/getAllUsersForParty";
 import {deleteUserFromParty} from "../actions/parties/deleteFromParty";
+import {setRatingAction} from "../actions/parties/setPartyRating";
+import SetRating from "../components/parties/SetRating";
 
 class AllParties extends React.Component {
 
@@ -43,6 +50,10 @@ class AllParties extends React.Component {
         if (nextProps.submitSuccess) {
             this.props.closeModal();
             this.props.getAllParties();
+        }
+        if (nextProps.isSuccess) {
+            this.props.hideSetRating();
+            this.props.getAllParties()
         }
     }
 
@@ -73,7 +84,7 @@ class AllParties extends React.Component {
         setTimeout(this.props.getAllParties, 3000);
     };
 
-    renderParty = party => <Media>
+    renderParty = party => <Media key={party.id}>
         <Media.Heading>
             Название: {party.name}
         </Media.Heading>
@@ -83,6 +94,8 @@ class AllParties extends React.Component {
             Идеология: {party.ideology}
             <br/>
             Количество депутатов: {party.users.length}
+            <br/>
+            Рейтинг: {party.rating}
         </Media.Body>
         <Button onClick={() => this.addToParty(party)}>
             Добавить пользователя в партию
@@ -97,7 +110,17 @@ class AllParties extends React.Component {
         >
             Отредактировать список депутатов
         </Button>
+        <Button onClick={() => this.props.showSetRating(party)}>
+            Изменить рейтинг
+        </Button>
     </Media>;
+
+    setRating = () => {
+        this.props.setRatingForParty({
+            id: this.props.selectedParty.id,
+            rating: this.props.rating
+        })
+    };
 
     render() {
         return (
@@ -134,24 +157,39 @@ class AllParties extends React.Component {
                     onDelete={userId => this.props.deleteFromParty(this.state.partyList.id, userId)}
                     partyName={this.state.partyList.name}
                 />
+                <SetRating
+                    modalVisible={this.props.showModalRating}
+                    rating={this.props.rating}
+                    closeModal={this.props.hideSetRating}
+                    changeRating={this.props.changeRating}
+                    party={this.props.selectedParty}
+                    submit={this.setRating}
+                />
             </div>
         )
     }
 }
 
+const mapStateToProps = state => {
+    const parties = state.parties;
+    return ({
+        title: state.parties.createParty.title,
+        description: state.parties.createParty.description,
+        ideology: state.parties.createParty.ideology,
+        submitSuccess: state.parties.createParty.submitSuccess,
+        isErrorCreateParty: state.parties.createParty.isError,
+        errorCodeCreateParty: state.parties.createParty.errorCode,
+        modalVisible: state.parties.showModal,
+        parties: state.parties.parties,
+        emptyUsers: state.parties.emptyUsers,
+        partyUsers: state.parties.partyUsers,
 
-const mapStateToProps = state => ({
-    title: state.parties.createParty.title,
-    description: state.parties.createParty.description,
-    ideology: state.parties.createParty.ideology,
-    submitSuccess: state.parties.createParty.submitSuccess,
-    isErrorCreateParty: state.parties.createParty.isError,
-    errorCodeCreateParty: state.parties.createParty.errorCode,
-    modalVisible: state.parties.showModal,
-    parties: state.parties.parties,
-    emptyUsers: state.parties.emptyUsers,
-    partyUsers: state.parties.partyUsers,
-});
+        rating: parties.setRating.rating,
+        selectedParty: parties.setRating.selectedParty,
+        isSuccess: parties.setRating.isSuccess,
+        showModalRating: parties.setRating.showModal,
+    });
+};
 
 const mapDispatchToProps = dispatch => ({
     createParty: params => dispatch(createPartyAction(params)),
@@ -170,6 +208,12 @@ const mapDispatchToProps = dispatch => ({
 
     showModal: () => dispatch(showCreateModalAction()),
     closeModal: () => dispatch(closeCreateModalAction()),
+
+    changeRating: rating => dispatch(changeRatingAction(rating)),
+    showSetRating: party => dispatch(showSetRatingAction(party)),
+    hideSetRating: () => dispatch(hideSetRatingAction()),
+
+    setRatingForParty: params => dispatch(setRatingAction(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllParties);

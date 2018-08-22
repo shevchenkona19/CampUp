@@ -8,12 +8,13 @@ module.exports = (db, DataTypes) => {
         title: {
             type: DataTypes.STRING,
         },
-        description: {
-            type: DataTypes.STRING,
+        body: {
+            type: DataTypes.STRING(10000),
         },
-        partyId: {
-            type: DataTypes.INTEGER
+        creator: {
+            type: DataTypes.STRING,
         }
     }, {timestamps: false});
+
     return Laws;
 };

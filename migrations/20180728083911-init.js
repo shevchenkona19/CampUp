@@ -14,6 +14,11 @@ module.exports = {
             description: {
                 type: Sequelize.STRING,
             },
+            rating: {
+                type: Sequelize.INTEGER,
+                defaultValue: 0,
+                allowNull: false,
+            },
             ideology: {
                 type: Sequelize.STRING,
             }

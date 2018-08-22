@@ -30,3 +30,22 @@ export const changeCreatePartyIdeologyReducer = (state, action) => ({
         }
     }
 });
+
+export const changePartyRatingReducer = (state, action) => {
+    let rating = state.parties.setRating.rating;
+    const reg = /^\d+$/;
+    if (reg.test(action.rating)) {
+        if (action.rating < 101 && action.rating >= 0)
+            rating = action.rating;
+    }
+    return ({
+        ...state,
+        parties: {
+            ...state.parties,
+            setRating: {
+                ...state.parties.setRating,
+                rating
+            }
+        }
+    });
+};
