@@ -14,10 +14,17 @@ const parties = {
     selectedParty: {},
 };
 
+const laws = {
+    laws: [],
+    modalVisible: false,
+    selectedLaw: {},
+};
+
 export const initState = {
     nav,
     users,
     parties,
+    laws,
     currentRoute: "/",
     isLoading: false,
     isError: false,

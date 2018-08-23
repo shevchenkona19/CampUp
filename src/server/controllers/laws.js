@@ -26,9 +26,14 @@ async function searchLaws(query) {
     else return foundLaws;
 }
 
+async function getOneLaw(lawId) {
+    return await Laws.findById(lawId);
+}
+
 module.exports = {
     getAllLaws,
     createLaw,
     deleteLaw,
-    searchLaws
+    searchLaws,
+    getOneLaw
 };

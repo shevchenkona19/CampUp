@@ -9,6 +9,14 @@ class MainNav extends React.Component {
         this.props.navTo(tabNum);
     };
 
+    componentDidMount() {
+        const url = document.location.href;
+        console.log(url);
+        if (url === "" || url === "/" || url === "http://localhost/") {
+            document.location.href = "/users";
+        }
+    }
+
     render() {
         return (
             <Navbar inverse collapseOnSelect>

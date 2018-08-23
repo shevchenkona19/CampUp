@@ -11,6 +11,9 @@ import {
     loadPartyInfoSuccessReducer
 } from "./parties/loadPartyInfo";
 import {hideAboutPartyReducer, showAboutPartyReducer} from "./parties/modal";
+import {loadAllLawsFailedReducer, loadAllLawsSendReducer, loadAllLawsSuccessReducer} from "./laws/loadAll";
+import {loadLawInfoFailedReducer, loadLawInfoSendReducer, loadLawInfoSuccessReducer} from "./laws/loadLawInfo";
+import {hideAboutLawReducer, showAboutLawReducer} from "./laws/modal";
 
 export default function rootReducer(state = initState, action) {
     switch (action.type) {
@@ -48,6 +51,22 @@ export default function rootReducer(state = initState, action) {
             return showAboutPartyReducer(state, action);
         case t.HIDE_ABOUT_PARTY:
             return hideAboutPartyReducer(state, action);
+        case t.LOAD_ALL_LAWS_SEND:
+            return loadAllLawsSendReducer(state, action);
+        case t.LOAD_ALL_LAWS_FAILED:
+            return loadAllLawsFailedReducer(state, action);
+        case t.LOAD_ALL_LAWS_SUCCESS:
+            return loadAllLawsSuccessReducer(state, action);
+        case t.LOAD_LAW_INFO_SEND:
+            return loadLawInfoSendReducer(state, action);
+        case t.LOAD_LAW_INFO_FAILED:
+            return loadLawInfoFailedReducer(state, action);
+        case t.LOAD_LAW_INFO_SUCCESS:
+            return loadLawInfoSuccessReducer(state, action);
+        case t.SHOW_ABOUT_LAW:
+            return showAboutLawReducer(state, action);
+        case t.HIDE_ABOUT_LAW:
+            return hideAboutLawReducer(state, action);
         default:
             return {...state}
     }

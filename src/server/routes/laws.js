@@ -38,6 +38,18 @@ router.get("/all", async (req, res) => {
     }
 });
 
+router.get("/law", async (req, res) => {
+    try {
+        return res.json({
+            success: true,
+            law: await Controller.getOneLaw(req.query.id)
+        })
+    } catch (e) {
+        console.log(e.stack);
+        return res.json(sendError(e))
+    }
+});
+
 router.get("/search", async (req, res) => {
     try {
         return res.json({
