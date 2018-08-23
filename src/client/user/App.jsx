@@ -8,6 +8,7 @@ import Users from "./containers/Users";
 import LoadableContainer from "./containers/LoadableContainer";
 import Parties from "./containers/Parties";
 import Laws from "./containers/Laws";
+import News from "./containers/News";
 
 export default class App extends React.Component {
     render() {
@@ -21,7 +22,7 @@ export default class App extends React.Component {
                                 <Route exact component={Users} path="/users"/>
                                 <Route exact component={Parties} path="/parties"/>
                                 <Route exact component={Laws} path="/laws"/>
-                                {/*<Route exact component={News} path="/news"/>*/}
+                                <Route exact component={News} path="/news"/>
                             </MainSwitch>
                         </BrowserRouter>
                     </LoadableContainer>

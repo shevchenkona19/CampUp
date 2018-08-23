@@ -32,10 +32,6 @@ async function createParty(params) {
     await newParty.save();
 }
 
-async function deleteParty(partyId) {
-    await Parties.destroy({where: {id: partyId}});
-}
-
 async function getParty(partyId) {
     const party = await Parties.findOne({
         where: {id: partyId},
@@ -51,9 +47,14 @@ async function getParty(partyId) {
 
 async function addToParty(params) {
     const partyId = params.partyId, userId = params.userId;
+    const party = await Parties.findById(partyId);
     const user = await Users.findById(userId);
     user.partyId = partyId;
-    user.status = "deputy";
+    if (party.name === "президент") {
+        user.status = "president"
+    } else {
+        user.status = "deputy";
+    }
     await user.save();
 }
 
@@ -76,6 +77,17 @@ async function setRating(params) {
     }
     party.rating = rating;
     await party.save();
+}
+
+async function deleteParty(partyId) {
+    const users = await Users.findAll({where: {partyId}});
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        user.status = "unemployed";
+        user.partyId = null;
+        await user.save();
+    }
+    await Parties.destroy({where:{id: partyId}});
 }
 
 module.exports = {

@@ -31,21 +31,6 @@ export default class CreateUserModal extends React.Component {
                                 placeholder="Фамилия"
                             />
                         </FormGroup>
-                        <FormGroup>
-                            <ControlLabel>Статус</ControlLabel>
-                            <FormControl
-                                componentClass={"select"}
-                                value={this.props.status}
-                                onChange={e => {
-                                    this.props.changeStatus(e.target.value);
-                                }}
-                                placeholder="Статус"
-                            >
-                                <option value={"president"} label={"Президент"}/>
-                                <option value={"deputy"} label={"Депутат"}/>
-                                <option value={"unemployed"} label={"Безработный"}/>
-                            </FormControl>
-                        </FormGroup>
                     </form>
                     <Button
                         bsStyle="primary"

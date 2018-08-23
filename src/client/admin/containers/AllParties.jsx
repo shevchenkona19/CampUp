@@ -24,6 +24,8 @@ import {getAllUsersForParty} from "../actions/parties/getAllUsersForParty";
 import {deleteUserFromParty} from "../actions/parties/deleteFromParty";
 import {setRatingAction} from "../actions/parties/setPartyRating";
 import SetRating from "../components/parties/SetRating";
+import {DELETE_NEWS_FAILED, DELETE_NEWS_SUCCESS} from "../constants/actionTypes";
+import {getAllNewsAction} from "../actions/news/getAll";
 
 class AllParties extends React.Component {
 
@@ -113,7 +115,27 @@ class AllParties extends React.Component {
         <Button onClick={() => this.props.showSetRating(party)}>
             Изменить рейтинг
         </Button>
+        <Button onClick={() => this.deleteParty(party.id)}>
+            Удалить партию
+        </Button>
     </Media>;
+
+    deleteParty = partyId => {
+        const url = '/parties/deleteParty?id=' + partyId;
+        fetch(url, {
+            method: "delete",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    this.props.getAllParties();
+                }
+            });
+    };
 
     setRating = () => {
         this.props.setRatingForParty({

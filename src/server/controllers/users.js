@@ -4,9 +4,10 @@ const Op = require("../models/index").getDb().Sequelize.Op;
 const errorCodes = require("../../common/errorCodes");
 
 async function createOne(user) {
-    if (!user.firstName || !user.lastName || !user.status) {
+    if (!user.firstName || !user.lastName) {
         throw new Error(errorCodes.WRONG_USER_PARAMS);
     }
+    user.status = "unemployed";
     const dbUser = Users.build(user);
     await dbUser.save();
 }

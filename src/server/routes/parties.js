@@ -76,6 +76,18 @@ router.post("/addToParty", async (req, res) => {
     }
 });
 
+router.delete("/deleteParty", async (req, res) => {
+    try {
+        await Controller.deleteParty(req.query.id);
+        return res.json({
+            success: true,
+        })
+    } catch (e) {
+        console.log(e.stack);
+        return res.json(sendError(e))
+    }
+});
+
 router.delete("/deleteFromParty", async (req, res) => {
     try {
         await Controller.removeFromParty(req.body.userId);

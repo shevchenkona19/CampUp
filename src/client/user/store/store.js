@@ -20,11 +20,18 @@ const laws = {
     selectedLaw: {},
 };
 
+const news = {
+    news: [],
+    modalVisible: false,
+    selectedNews: {},
+};
+
 export const initState = {
     nav,
     users,
     parties,
     laws,
+    news,
     currentRoute: "/",
     isLoading: false,
     isError: false,

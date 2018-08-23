@@ -12,8 +12,13 @@ async function deleteNews(newsId) {
     await News.destroy({where: {id: newsId}});
 }
 
+async function getOneNews(newsId) {
+    return await News.findById(newsId);
+}
+
 module.exports = {
     getAllNews,
     createNews,
-    deleteNews
+    deleteNews,
+    getOneNews
 };

@@ -1,10 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
 import List from "../../common/components/List";
-import AboutUser from "../components/users/AboutUser";
-import {loadAllUsersAction} from "../actions/users/loadAll";
-import {loadUserInfoAction} from "../actions/users/loadUserInfo";
-import {hideAboutUserModalAction, showAboutUserModalAction} from "../actions/users/modal";
 import {ListGroupItem} from "react-bootstrap";
 import {loadAllPartiesAction} from "../actions/parties/loadAll";
 import {loadPartyInfoAction} from "../actions/parties/loadPartyInfo";
@@ -21,9 +17,12 @@ class Parties extends React.Component {
         this.props.showModal();
     };
 
-    renderParty = party => <ListGroupItem key={party.id} onClick={() => this.partySelected(party.id)}>
-        {party.name}
-    </ListGroupItem>;
+    renderParty = party => {
+        if (party.name === "президент") return null;
+        return (<ListGroupItem key={party.id} onClick={() => this.partySelected(party.id)}>
+            {party.name}
+        </ListGroupItem>)
+    };
 
     render() {
         return (

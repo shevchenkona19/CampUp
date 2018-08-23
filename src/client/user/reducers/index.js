@@ -14,6 +14,9 @@ import {hideAboutPartyReducer, showAboutPartyReducer} from "./parties/modal";
 import {loadAllLawsFailedReducer, loadAllLawsSendReducer, loadAllLawsSuccessReducer} from "./laws/loadAll";
 import {loadLawInfoFailedReducer, loadLawInfoSendReducer, loadLawInfoSuccessReducer} from "./laws/loadLawInfo";
 import {hideAboutLawReducer, showAboutLawReducer} from "./laws/modal";
+import {loadAllNewsFailedReducer, loadAllNewsSendReducer, loadAllNewsSuccessReducer} from "./news/loadAll";
+import {loadNewsInfoFailedReducer, loadNewsInfoSendReducer, loadNewsInfoSuccessReducer} from "./news/loadNewsInfo";
+import {hideAboutNewsReducer, showAboutNewsReducer} from "./news/modal";
 
 export default function rootReducer(state = initState, action) {
     switch (action.type) {
@@ -67,6 +70,22 @@ export default function rootReducer(state = initState, action) {
             return showAboutLawReducer(state, action);
         case t.HIDE_ABOUT_LAW:
             return hideAboutLawReducer(state, action);
+        case t.LOAD_ALL_NEWS_SEND:
+            return loadAllNewsSendReducer(state, action);
+        case t.LOAD_ALL_NEWS_FAILED:
+            return loadAllNewsFailedReducer(state, action);
+        case t.LOAD_ALL_NEWS_SUCCESS:
+            return loadAllNewsSuccessReducer(state, action);
+        case t.LOAD_NEWS_INFO_SEND:
+            return loadNewsInfoSendReducer(state, action);
+        case t.LOAD_NEWS_INFO_FAILED:
+            return loadNewsInfoFailedReducer(state, action);
+        case t.LOAD_NEWS_INFO_SUCCESS:
+            return loadNewsInfoSuccessReducer(state, action);
+        case t.SHOW_ABOUT_NEWS:
+            return showAboutNewsReducer(state, action);
+        case t.HIDE_ABOUT_NEWS:
+            return hideAboutNewsReducer(state, action);
         default:
             return {...state}
     }

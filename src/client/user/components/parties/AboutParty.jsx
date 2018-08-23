@@ -10,6 +10,14 @@ export default class AboutParty extends React.Component {
         usersListVisible: false,
     };
 
+    close = () => {
+        this.setState({
+            descriptionVisible: false,
+            usersListVisible: false
+        });
+        this.props.onClose()
+    };
+
     toggleDescription = () => this.setState({descriptionVisible: !this.state.descriptionVisible});
 
     toggleUserList = () => this.setState({usersListVisible: !this.state.usersListVisible});
@@ -20,7 +28,7 @@ export default class AboutParty extends React.Component {
 
     render() {
         return (
-            <Modal show={this.props.visible} onHide={this.props.onClose}>
+            <Modal show={this.props.visible} onHide={this.close}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Партия: {this.props.party.name}

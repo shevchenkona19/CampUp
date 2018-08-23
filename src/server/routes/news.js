@@ -37,6 +37,19 @@ router.get("/all", async (req, res) => {
         return res.json(sendError(e))
     }
 });
+
+router.get("/news", async (req, res) => {
+    try {
+        return res.json({
+            success: true,
+            news: await Controller.getOneNews(req.query.id)
+        })
+    } catch (e) {
+        console.log(e.stack);
+        return res.json(sendError(e))
+    }
+});
+
 sendError = error => ({success: false, errorCode: error});
 
 module.exports = router;
