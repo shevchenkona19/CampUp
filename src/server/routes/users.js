@@ -17,6 +17,21 @@ router.post("/create", async (req, res) => {
     }
 });
 
+router.delete("/user", async (req, res) => {
+    try {
+        await Controller.deleteUser(req.query.id);
+        return res.json({
+            success: true,
+        })
+    } catch (e) {
+        console.error(e);
+        return res.json({
+            success: false,
+            errorCode: e
+        });
+    }
+});
+
 router.get("/all", async (req, res) => {
     try {
         return res.json({
@@ -62,7 +77,7 @@ router.post("/edit", async (req, res) => {
     }
 });
 
-router.get("/emptyUsers",async (req, res) => {
+router.get("/emptyUsers", async (req, res) => {
     try {
         return res.json({
             success: true,

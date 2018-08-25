@@ -19,21 +19,41 @@ class AllUsers extends React.Component {
         this.props.getAll();
     }
 
-    renderUser = user => <Media>
+    deleteUser = id => {
+        const url = '/users/user?id=' + id;
+        fetch(url, {
+            method: "delete",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    this.props.getAll();
+                }
+            });
+    };
+
+    renderUser = user => <Media key={user.id}>
         <Media.Heading>
             Name: {user.firstName + " " + user.lastName}
         </Media.Heading>
         <Media.Body>
             Status: {user.status}
+            <Button onClick={() => this.deleteUser(user.id)}>
+                Удалить пользователя
+            </Button>
         </Media.Body>
     </Media>;
 
     onSubmit = () => {
-      this.props.createUser({
-          firstName: this.props.name,
-          lastName: this.props.lastName,
-          status: this.props.status,
-      });
+        this.props.createUser({
+            firstName: this.props.name,
+            lastName: this.props.lastName,
+            status: this.props.status,
+        });
     };
 
     componentWillReceiveProps(nextProps) {

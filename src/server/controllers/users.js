@@ -56,11 +56,16 @@ async function getAllForParty(partyId) {
     })
 }
 
+async function deleteUser(id) {
+    await Users.destroy({where: {id}});
+}
+
 module.exports = {
     createOne,
     getAll,
     getOne,
     editUser,
     getEmptyUsers,
-    getAllForParty
+    getAllForParty,
+    deleteUser,
 };
